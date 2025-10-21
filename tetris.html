@@ -428,16 +428,18 @@
         }
 
         function drawBlock(ctx, x, y, color, size = BLOCK_SIZE) {
-            const padding = 1; // Inset the stroke to keep it within boundaries
+            // Use 2px inset to keep the 2px stroke fully within block boundaries
+            const strokeInset = 2;
             ctx.fillStyle = COLORS[color];
             ctx.fillRect(x * size, y * size, size, size);
             ctx.strokeStyle = '#000';
             ctx.lineWidth = 2;
-            ctx.strokeRect(x * size + padding, y * size + padding, size - padding * 2, size - padding * 2);
+            // Inset the stroke by half the line width (1px) plus small margin to keep fully within bounds
+            ctx.strokeRect(x * size + strokeInset, y * size + strokeInset, size - strokeInset * 2, size - strokeInset * 2);
 
             // Add highlight for 3D effect
             ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.fillRect(x * size + 2, y * size + 2, size / 3, size / 3);
+            ctx.fillRect(x * size + 3, y * size + 3, size / 4, size / 4);
         }
 
         function drawBoard() {
@@ -506,6 +508,8 @@
                 currentPiece.x -= dir;
                 return false;
             }
+            // Debug: log successful moves to verify range
+            // console.log(`Piece at x=${currentPiece.x}, rightmost block at column ${currentPiece.x + currentPiece.shape[0].length - 1}`);
             return true;
         }
 
