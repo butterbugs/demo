@@ -428,15 +428,16 @@
         }
 
         function drawBlock(ctx, x, y, color, size = BLOCK_SIZE) {
+            const padding = 1; // Inset the stroke to keep it within boundaries
             ctx.fillStyle = COLORS[color];
             ctx.fillRect(x * size, y * size, size, size);
             ctx.strokeStyle = '#000';
             ctx.lineWidth = 2;
-            ctx.strokeRect(x * size, y * size, size, size);
+            ctx.strokeRect(x * size + padding, y * size + padding, size - padding * 2, size - padding * 2);
 
             // Add highlight for 3D effect
             ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.fillRect(x * size, y * size, size / 3, size / 3);
+            ctx.fillRect(x * size + 2, y * size + 2, size / 3, size / 3);
         }
 
         function drawBoard() {
